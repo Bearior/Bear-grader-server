@@ -58,7 +58,7 @@ app.get('/api/problems/:id', (req, res) => {
 
 // Handle code submission and test cases
 app.post('/api/submit', (req, res) => {
-  const { code, problemId } = req.body;
+  const { code, problemId, username} = req.body;
 
   const problem = problems.find(p => p.id == problemId);
   if (!problem) {
