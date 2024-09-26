@@ -37,7 +37,25 @@ const problems = [
       { input: '4', output: '24' },
       { input: '5', output: '120' }
     ]
-  }
+  },
+  {
+    id: 3,
+    title: 'Pretest1_Flowchart',
+    description: 'Click link for details',
+    file: 'https://drive.google.com/file/d/1vz3gzhlgONB_5ef65UtY_XVXkv6NgmRj/view?usp=sharing',
+    testCases: [
+        { input: '30 50 40', output: '4130 50 41' },
+        { input: '1 4 2', output: '65 4 4' },
+        { input: '1 2 4', output: '1 2 4' },
+        { input: '9 4 3', output: '34 4 3' },
+        { input: '50 40 30', output: '100 104 12' },
+        { input: '51 20 42', output: '71 213 255' },
+        { input: '51 41 36', output: '25 82 -57' },
+        { input: '60 75 5', output: '375 187 194' },
+        { input: '60 72 4', output: '64 69 128' },
+        { input: '60 82 91', output: '59 173 169' }
+    ]
+  },
 ];
 
 // Get all problems
