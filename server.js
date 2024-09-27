@@ -53,7 +53,17 @@ const problems = [
         { input: '51 41 36', output: '25 82 -57' },
         { input: '60 75 5', output: '375 187 194' },
         { input: '60 72 4', output: '64 69 128' },
-        { input: '60 82 91', output: '59 173 169' }
+        { input: '60 82 91', output: '59 173 169' },
+        { input: '17 12 24', output: '17 12 24' },
+        { input: '40 -6 6', output: '40 -6 6' },
+        { input: '-17 17 2', output: '629 18 4' },
+        { input: '22 -15 19', output: '22 -15 19' },
+        { input: '42 8 -3', output: '115 8 -2' },
+        { input: '842 33 338', output: '1684 1688 12' },
+        { input: '131 720 684', output: '815 717 1630' },
+        { input: '163 757 491', output: '3785 1892 1899' },
+        { input: '847 577 184', output: '423 1154 -731' },
+        { input: '519 514 30', output: '259 1028 -769' },
     ]
   },
 ];
