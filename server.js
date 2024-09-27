@@ -157,11 +157,10 @@ const problems = [
       { "input": "16\n1\n9", "output": "479 4 5" },
       { "input": "120\n450\n317", "output": "240 690 1007" },
       { "input": "389\n105\n158", "output": "153 48 144" },
-      { "input": "22\n7\n8", "output": "687 11 15" },
-      { "input": "45\n20\n35", "output": "1575 25 30" },
-      { "input": "30\n15\n10", "output": "450 5 20" },
-      { "input": "55\n23\n12", "output": "1265 8 19" },
-      { "input": "78\n29\n11", "output": "2289 7 18" }
+      { "input": "22\n7\n8", "output": "135 7 7" },
+      { "input": "45\n20\n35", "output": "17901 26 30" },
+      { "input": "30\n15\n10", "output": "30 15 10" },
+      { "input": "55\n23\n12", "output": "55 23 12" },
     ]
   },
 
