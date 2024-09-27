@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;  // Make sure to use process.env.PORT for Render
 
 // Timeout duration in milliseconds (e.g., 5 seconds)
-const TIMEOUT_DURATION = 5000;
+const TIMEOUT_DURATION = 10000;
 
 // In-memory storage for submissions (can be replaced by a database)
 let submissions = [];
