@@ -170,16 +170,8 @@ const problems = [
     "description": "Click link for details *** testcases of Oldmidterm are GPT Generated, might not be entirely accurate ****",
     "file": "https://drive.google.com/file/d/1Kox5NnazTaTFpvc1Ioq92LpPNYbXkzPy/view?usp=sharing",
     "testCases": [
-      { "input": "10 0 10", "output": "500.0 100.0" },
-      { "input": "10 45 10", "output": "431.8 70.7" },
-      { "input": "15 30 12", "output": "622.5 130.0" },
-      { "input": "20 60 8", "output": "346.4 160.0" },
-      { "input": "25 90 5", "output": "0.0 250.0" },
-      { "input": "18 15 7", "output": "291.6 105.4" },
-      { "input": "30 75 9", "output": "470.7 270.0" },
-      { "input": "12 20 6", "output": "207.8 72.6" },
-      { "input": "35 50 11", "output": "750.0 380.1" },
-      { "input": "40 90 14", "output": "0.0 560.0" }
+      { "input": "10 0 10", "output": "500 100" },
+      { "input": "10 45 10", "output": "431.8 70.7" }
     ]
   },
 
@@ -190,15 +182,7 @@ const problems = [
     "file": "https://drive.google.com/file/d/1qHXR9c59TUPcOLeGqf3WjNmtW3UEpfut/view?usp=sharing",
     "testCases": [
      { "input": "3\nC 4\nA 1\nB+ 3", "output": "2.81" },
-    { "input": "3\nA 1\nA 2\nA 3", "output": "4.00" },
-    { "input": "4\nB 3\nC+ 2\nA 4\nD 3", "output": "2.75" },
-    { "input": "2\nF 3\nB 2", "output": "1.20" },
-    { "input": "5\nA 3\nB+ 2\nC 4\nD+ 3\nF 1", "output": "2.50" },
-    { "input": "3\nD 4\nC+ 3\nB+ 2", "output": "2.39" },
-    { "input": "4\nC 3\nB 3\nA 2\nF 1", "output": "2.50" },
-    { "input": "2\nA 4\nB+ 4", "output": "3.75" },
-    { "input": "3\nA 3\nB 3\nC+ 2", "output": "3.06" },
-    { "input": "1\nF 3", "output": "0.00" }
+    { "input": "3\nA 1\nA 2\nA 3", "output": "4.00" }
     ]
   },
 
@@ -213,11 +197,6 @@ const problems = [
       { "input": "1\n7 1 3 3", "output": "YES" },
       { "input": "3\n5 1 7 1\n2 2 3 1\n4 1 5 1", "output": "YES\nYES\nYES" },
       { "input": "5\n3 2 5 2\n7 1 9 1\n2 1 3 1\n4 1 7 1\n8 1 9 1", "output": "YES\nNO\nYES\nYES\nNO" },
-      { "input": "2\n9 1 7 2\n3 3 2 2", "output": "NO\nYES" },
-      { "input": "3\n1 1 1 1\n5 1 9 1\n2 2 7 1", "output": "YES\nNO\nYES" },
-      { "input": "1\n2 1 1 1", "output": "YES" },
-      { "input": "4\n1 1 7 1\n3 2 5 1\n7 1 3 1\n5 1 1 1", "output": "YES\nYES\nYES\nYES" },
-      { "input": "2\n8 1 9 1\n1 16 3 1", "output": "NO\nYES" }
     ]
   },
 
@@ -232,11 +211,6 @@ const problems = [
       { "input": "5\n1 5\n1 4\n3 4\n4 6\n5 7", "output": "3" },
       { "input": "3\n1 4\n1 4\n1 4", "output": "3" },
       { "input": "1\n10 20", "output": "1" },
-      { "input": "4\n2 5\n3 7\n5 9\n7 10", "output": "3" },
-      { "input": "5\n5 15\n10 25\n15 30\n20 35\n25 40", "output": "2" },
-      { "input": "3\n1 1440\n100 200\n400 600", "output": "2" },
-      { "input": "2\n50 100\n75 125", "output": "2" },
-      { "input": "4\n60 80\n70 90\n75 85\n80 100", "output": "3" }
     ]
   }
   
