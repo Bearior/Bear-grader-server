@@ -245,6 +245,7 @@ const problems = [
 ];
 // Get all problems
 app.get('/api/problems', (req, res) => {
+  console.log('Received request for all problems');
   res.json(problems);
 });
 
@@ -255,6 +256,7 @@ app.get('/api/problems/:id', (req, res) => {
   if (problem) {
     res.json(problem);
   } else {
+    console.error(`Problem ID: ${req.params.id} not found`);
     res.status(404).send('Problem not found');
   }
 });
@@ -262,87 +264,113 @@ app.get('/api/problems/:id', (req, res) => {
 // Handle code submission and test cases
 app.post('/api/submit', (req, res) => {
   const { code, problemId, username } = req.body;
+  console.log(`Received submission for problem ID: ${problemId} by user: ${username}`);
 
   const problem = problems.find(p => p.id == problemId);
   if (!problem) {
+    console.error(`Problem ID: ${problemId} not found for submission`);
     return res.status(404).send('Problem not found');
   }
 
-  // Save the user's code to a file
-  const filePath = path.join(__dirname, 'user_code.cpp');
-  fs.writeFileSync(filePath, code);
+  try {
+    // Save the user's code to a file
+    const filePath = path.join(__dirname, 'user_code.cpp');
+    console.log(`Saving code to file: ${filePath}`);
+    fs.writeFileSync(filePath, code);
 
-  // Compile the user's C++ code using g++ (without .exe)
-  exec(`g++ ${filePath} -o output`, (error, stdout, stderr) => {
-    if (error) {
-      return res.json({ success: false, message: `Compilation Error: ${stderr}` });
-    }
+    // Compile the user's C++ code using g++ (without .exe)
+    console.log(`Compiling code: g++ ${filePath}`);
+    exec(`g++ ${filePath} -o output`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`Compilation Error: ${stderr}`);
+        return res.json({ success: false, message: `Compilation Error: ${stderr}` });
+      }
 
-    // Initialize score and result array
-    let passed = 0;
-    const totalTestCases = problem.testCases.length;
-    const results = [];
+      // Initialize score and result array
+      let passed = 0;
+      const totalTestCases = problem.testCases.length;
+      const results = [];
+      console.log(`Compiled successfully, running test cases for problem ID: ${problemId}`);
 
-    // Run the compiled code for each test case
-    problem.testCases.forEach((testCase, index) => {
-      const inputFilePath = path.join(__dirname, `input${index}.txt`);
-      const outputFilePath = path.join(__dirname, `output${index}.txt`);
+      // Run the compiled code for each test case
+      problem.testCases.forEach((testCase, index) => {
+        const inputFilePath = path.join(__dirname, `input${index}.txt`);
+        const outputFilePath = path.join(__dirname, `output${index}.txt`);
 
-      // Write the input to a file
-      fs.writeFileSync(inputFilePath, testCase.input);
+        try {
+          // Write the input to a file
+          console.log(`Writing input to file: ${inputFilePath}`);
+          fs.writeFileSync(inputFilePath, testCase.input);
+        } catch (err) {
+          console.error(`Error writing input file: ${err}`);
+        }
 
-      // Execute the program with input redirection (./output for Linux) with a timeout
-      exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
-        if (runError) {
-          if (runError.killed) {
-            // This happens when the program exceeds the timeout
-            results.push({ success: false, message: `Timeout Error: Program exceeded ${TIMEOUT_DURATION / 1000} seconds limit.` });
+        // Execute the program with input redirection (./output for Linux) with a timeout
+        console.log(`Executing test case ${index + 1} with timeout: ${TIMEOUT_DURATION / 1000} seconds`);
+        exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
+          if (runError) {
+            if (runError.killed) {
+              console.warn(`Test case ${index + 1}: Timeout Error (exceeded ${TIMEOUT_DURATION / 1000} seconds)`);
+              results.push({ success: false, message: `Timeout Error: Program exceeded ${TIMEOUT_DURATION / 1000} seconds limit.` });
+            } else {
+              console.error(`Test case ${index + 1}: Runtime Error: ${runStderr}`);
+              results.push({ success: false, message: `Runtime Error: ${runStderr}` });
+            }
           } else {
-            results.push({ success: false, message: `Runtime Error: ${runStderr}` });
+            try {
+              const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
+              const expectedOutput = testCase.output.trim();
+
+              if (userOutput === expectedOutput) {
+                passed += 1;
+                console.log(`Test case ${index + 1}: Passed`);
+                results.push({ success: true, message: `Test case ${index + 1}: Passed` });
+              } else {
+                console.log(`Test case ${index + 1}: Failed (Expected: ${expectedOutput}, Got: ${userOutput})`);
+                results.push({ success: false, message: `Test case ${index + 1}: Failed` });
+              }
+            } catch (err) {
+              console.error(`Error reading output file: ${err}`);
+              results.push({ success: false, message: `Error reading output file: ${err}` });
+            }
           }
-          return;
-        }
 
-        const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
-        const expectedOutput = testCase.output.trim();
+          // After processing all test cases, save the submission and return the results
+          if (results.length === totalTestCases) {
+            const score = (passed / totalTestCases) * 100;
 
-        if (userOutput === expectedOutput) {
-          passed += 1;
-          results.push({ success: true, message: `Test case ${index + 1}: Passed` });
-        } else {
-          results.push({ success: false, message: `Test case ${index + 1}: Failed` });
-        }
+            // Generate a unique submission ID
+            const submissionId = submissionCounter++;
+            console.log(`Submission ID: ${submissionId}, Score: ${score}%`);
 
-        // After processing all test cases, save the submission and return the results
-        if (results.length === totalTestCases) {
-          const score = (passed / totalTestCases) * 100;
+            // Save the submission
+            const newSubmission = {
+              submissionId,
+              problemId,
+              code,
+              score,
+              username,
+              results,
+              timestamp: new Date()
+            };
+            submissions.push(newSubmission);
 
-          // Generate a unique submission ID
-          const submissionId = submissionCounter++;
-
-          // Save the submission
-          const newSubmission = {
-            submissionId,
-            problemId,
-            code,
-            score,
-            username,
-            results,
-            timestamp: new Date()
-          };
-          submissions.push(newSubmission);
-
-          // Return the submission with a unique ID
-          res.json({ success: true, submissionId, score, results });
-        }
+            // Return the submission with a unique ID
+            res.json({ success: true, submissionId, score, results });
+          }
+        });
       });
     });
-  });
+  } catch (err) {
+    console.error(`Error during submission process: ${err}`);
+    res.status(500).send(`Error processing submission: ${err}`);
+  }
 });
 
 // Retrieve previous submissions by problem ID
 app.get('/api/submissions/:problemId', (req, res) => {
   const problemId = parseInt(req.params.problemId);
+  console.log(`Received request for submissions for problem ID: ${problemId}`);
   const problemSubmissions = submissions.filter(sub => sub.problemId === problemId);
   res.json(problemSubmissions);
 });
