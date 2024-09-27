@@ -186,8 +186,8 @@ const problems = [
 
   {
     "id": 10,
-    "title": "OldMidterm3_GPA_Calculator *** testcases of Oldmidterm are GPT Generated, might not be entirely accurate ****",
-    "description": "Click link for details",
+    "title": "OldMidterm3_GPA_Calculator ",
+    "description": "Click link for details *** testcases of Oldmidterm are GPT Generated, might not be entirely accurate ****",
     "file": "https://drive.google.com/file/d/1qHXR9c59TUPcOLeGqf3WjNmtW3UEpfut/view?usp=sharing",
     "testCases": [
      { "input": "3\nC 4\nA 1\nB+ 3", "output": "2.81" },
