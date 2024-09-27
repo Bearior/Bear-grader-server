@@ -150,7 +150,7 @@ const problems = [
     "id": 8,
     "title": "OldMidterm1_Flowchart",
     "description": "Click link for details *** testcases of Oldmidterm are GPT Generated, might not be entirely accurate ****",
-    "file": "https://drive.google.com/file/d/1AzqGpC6ewT_aogSFp5uvZlEOtrr4QDby/view?usp=sharing",
+    "file": "https://drive.google.com/file/d/1oHQu6MDpjvIsMA9ybVFvDbc7cPHJaToW/view?usp=sharing",
     "testCases": [
       { "input": "15\n3\n18", "output": "2229 7 15" },
       { "input": "19\n10\n18", "output": "1675 12 17" },
