@@ -8,6 +8,9 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;  // Make sure to use process.env.PORT for Render
 
+// Timeout duration in milliseconds (e.g., 5 seconds)
+const TIMEOUT_DURATION = 5000;
+
 // In-memory storage for submissions (can be replaced by a database)
 let submissions = [];
 let submissionCounter = 1;  // To track unique submission IDs
@@ -67,7 +70,6 @@ const problems = [
     ]
   },
 ];
-
 // Get all problems
 app.get('/api/problems', (req, res) => {
   res.json(problems);
@@ -86,7 +88,7 @@ app.get('/api/problems/:id', (req, res) => {
 
 // Handle code submission and test cases
 app.post('/api/submit', (req, res) => {
-  const { code, problemId, username} = req.body;
+  const { code, problemId, username } = req.body;
 
   const problem = problems.find(p => p.id == problemId);
   if (!problem) {
@@ -116,10 +118,15 @@ app.post('/api/submit', (req, res) => {
       // Write the input to a file
       fs.writeFileSync(inputFilePath, testCase.input);
 
-      // Execute the program with input redirection (./output for Linux)
-      exec(`./output < ${inputFilePath} > ${outputFilePath}`, (runError, runStdout, runStderr) => {
+      // Execute the program with input redirection (./output for Linux) with a timeout
+      exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
         if (runError) {
-          results.push({ success: false, message: `Runtime Error: ${runStderr}` });
+          if (runError.killed) {
+            // This happens when the program exceeds the timeout
+            results.push({ success: false, message: `Timeout Error: Program exceeded ${TIMEOUT_DURATION / 1000} seconds limit.` });
+          } else {
+            results.push({ success: false, message: `Runtime Error: ${runStderr}` });
+          }
           return;
         }
 
