@@ -69,6 +69,22 @@ const problems = [
         { input: '519 514 30', output: '259 1028 -769' },
     ]
   },
+  {
+    id: 4,
+    title: 'Pretest2_Expression',
+    description: 'Click link for details',
+    file: 'https://drive.google.com/file/d/1aYvqAd1n3cZwZhyZwSDF43Jr66SQzBd0/view?usp=sharing',
+    testCases: [
+      { "input": "-1", "output": "2.9" },
+      { "input": "-2", "output": "13.6" },
+      { "input": "3", "output": "20.8" },
+      { "input": "4", "output": "32.2" },
+      { "input": "5", "output": "40.7" },
+      { "input": "6", "output": "46.4" },
+      { "input": "7", "output": "50.0" },
+      { "input": "8", "output": "52.3" }
+    ]
+  },
 ];
 // Get all problems
 app.get('/api/problems', (req, res) => {
