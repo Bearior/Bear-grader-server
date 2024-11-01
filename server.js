@@ -290,6 +290,23 @@ const problems = [
         { "input": "4\nME 1\nPE 1\nCE 1\nIE 1\n4\n5930000021 3.0 ME PE CE IE\n5930000023 4.0 PE CE IE ME\n5930000024 1.0 CE IE ME PE\n5930000022 2.0 IE ME PE CE", "output": "5930000021 ME\n5930000022 IE\n5930000023 PE\n5930000024 CE" },
       ]
     },
+    {
+      "id": 25,
+      "title": "Map : Sky train",
+      "description": "Click link for details",
+      "file": "https://drive.google.com/file/d/1BQk_bAtU5PTxPFy6oI5sd-7rp9g-gC-w/view?usp=sharing",
+      "testCases": [
+        {"input": "Siam", "output": "Siam"},
+        {"input": "Siam ChitLom\nChitLom PhloenChit\nPhloenChit Nana\nSiam NationalStadium\nRatchadamri Siam\nSiam PhayaThai\nRatchadamri SalaDaeng\nThongLo Ekkamai\nEkkamai ThongLo\nNana", "output": "ChitLom\nNana\nPhloenChit"},
+        {"input": "Siam ChitLom\nChitLom PhloenChit\nPhloenChit Nana\nSiam NationalStadium\nRatchadamri Siam\nSiam PhayaThai\nRatchadamri SalaDaeng\nThongLo Ekkamai\nEkkamai ThongLo\nNationalStadium", "output": "ChitLom\nNationalStadium\nPhayaThai\nRatchadamri\nSiam"},
+        {"input": "Siam ChitLom\nChitLom PhloenChit\nPhloenChit Nana\nSiam NationalStadium\nRatchadamri Siam\nSiam PhayaThai\nRatchadamri SalaDaeng\nThongLo Ekkamai\nEkkamai ThongLo\nSalaDaeng", "output": "Ratchadamri\nSalaDaeng\nSiam"},
+        {"input": "A B\nB C\nC A\nB A\nC B\nA C\nD E\nA X\nB Y\nC Z\nA", "output": "A\nB\nC\nX\nY\nZ"},
+        {"input": "A B\nB C\nC A\nB A\nC B\nA C\nD E\nA X\nB Y\nC Z\nZ", "output": "A\nB\nC\nZ"},
+        {"input": "A B\nB C\nC A\nB A\nC B\nA C\nD E\nA X\nB Y\nC Z\nE", "output": "D\nE"},
+        {"input": "A B\nB C\nC A\nB A\nC B\nA C\nD E\nA X\nB Y\nC Z\nK", "output": "K"},
+        {"input": "1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 8\n8 9\n9 10\n5", "output": "3\n4\n5\n6\n7"},
+      ]
+    },
 
     {
       "id": 30,
