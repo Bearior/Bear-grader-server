@@ -239,9 +239,9 @@ const problems = [
         { "input": "6\nP 40\nQ 50\nR 30\nS 50\nT 40\nU 60\n3", "output": "60 U\n50 Q S\n40 P T" },
         { "input": "7\nX 70\nY 80\nZ 60\nX 90\nY 75\nZ 85\nW 100\n2", "output": "100 W\n90 X" },
         { "input": "4\nL 100\nM 90\nN 100\nO 95\n1", "output": "100 L N" },
-        // { "input": "10\nA 55\nB 65\nC 75\nD 85\nE 95\nF 65\nG 75\nH 85\nI 95\nJ 65\n5", "output": "95 E I\n85 D H\n75 C G\n65 B F J\n55 A" },
-        // { "input": "3\nAlice 90\nBob 80\nCharlie 90\n2", "output": "90 Alice Charlie\n80 Bob" },
-        // { "input": "6\nMark 50\nLuke 60\nJohn 70\nPaul 80\nPeter 60\nJames 70\n3", "output": "80 Paul\n70 James John\n60 Luke Peter" }
+        { "input": "10\nA 55\nB 65\nC 75\nD 85\nE 95\nF 65\nG 75\nH 85\nI 95\nJ 65\n5", "output": "95 E I\n85 D H\n75 C G\n65 B F J\n55 A" },
+        { "input": "3\nAlice 90\nBob 80\nCharlie 90\n2", "output": "90 Alice Charlie\n80 Bob" },
+        { "input": "6\nMark 50\nLuke 60\nJohn 70\nPaul 80\nPeter 60\nJames 70\n3", "output": "80 Paul\n70 James John\n60 Luke Peter" }
       ]
     },
     {
@@ -260,6 +260,18 @@ const problems = [
         { "input": "22:00:01", "output": " 0 0 0\n 00000\n110000\n000001" },
         { "input": "22:00:00", "output": " 0 0 0\n 00000\n110000\n000000" },
         { "input": "23:59:59", "output": " 0 1 1\n 01010\n110000\n011111" }
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Recurrences",
+      "description": "Click link for details",
+      "file": "https://drive.google.com/file/d/1s1OHvDxO50OxWwoZzIybex7NAHwgXFZ-/view?usp=sharing",
+      "testCases": [
+        { "input": "F 0\nF 1\nF 10\nF 15\nF 40", "output": "F(0) = 0\nF(1) = 1\nF(10) = 55\nF(15) = 610\nF(40) = 102334155" },
+        { "input": "M 0\nM 4\nM 6\nM 7\nM 8", "output": "M(0) = 1\nM(4) = 9\nM(6) = 51\nM(7) = 127\nM(8) = 323" },
+        { "input": "S 1\nS 2\nS 5\nS 10", "output": "S(1) = 1\nS(2) = 1\nS(5) = 45\nS(10) = 103049" },
+        { "input": "D 0\nD 3\nD 6\nD 10", "output": "D(0) = 1\nD(3) = 2\nD(6) = 265\nD(10) = 1334961" }
       ]
     },
 
