@@ -274,6 +274,25 @@ const problems = [
         { "input": "D 0\nD 3\nD 6\nD 10", "output": "D(0) = 1\nD(3) = 2\nD(6) = 265\nD(10) = 1334961" }
       ]
     },
+    {
+      "id": 30,
+      "title": "Extra 1",
+      "description": "Click link for details",
+      "file": "https://drive.google.com/file/d/1Ta_i3Mf4R6LUndDbtJXqOvIm2KvXJQvH/view?usp=sharing",
+      "testCases": [
+        {"input": "5\napple\nbanana\napple\norange\nberry\n", "output": "15"},
+        {"input": "3\ndog\ncat\ndog\n", "output": "3"},
+        {"input": "6\nabc\ndef\nghi\nabc\ndef\njkl\n", "output": "9"},
+        {"input": "4\none\ntwo\nthree\nfour\n", "output": "9"},  
+        {"input": "4\na\nab\nabc\nabcd\n", "output": "10"},  
+        {"input": "7\napple\napple\nbanana\nbanana\norange\nberry\nberry\n", "output": "15"},
+        {"input": "5\nxy\nx\ny\nx\nx\n", "output": "3"},  
+        {"input": "1\nsingle\n", "output": "6"}, 
+        {"input": "0\n", "output": "0"}, 
+        {"input": "4\nhello\nworld\ncode\nplayground\n", "output": "15"} 
+      ]
+    },
+    
 
 ];
 // Get all problems
