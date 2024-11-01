@@ -92,7 +92,7 @@ const problems = [
     },
     {
       "id": 23,
-      "title": "Recurrences",
+      "title": "Recur_1",
       "description": "Click link for details",
       "file": "https://drive.google.com/file/d/1s1OHvDxO50OxWwoZzIybex7NAHwgXFZ-/view?usp=sharing",
       "testCases": [
@@ -152,6 +152,30 @@ const problems = [
         {"input": "6UV-877\n1000000", "output": "8HH-877"},
         {"input": "3YW-877\n2000000", "output": "6XU-877"},
         {"input": "0AA-000\n6759777", "output": "9ZZ-777"},
+      ]
+    },
+
+    {
+      "id": 27,
+      "title": "Recur_2",
+      "description": "Click link for details",
+      "file": "https://drive.google.com/file/d/1VwupfgcGQdRCcwGixQXIUo29wtX83qlm/view?usp=sharing",
+      "testCases": [
+        {"input": "H 0\nH 3\nH 10", "output": "H(0) = 0\nH(3) = 7\nH(10) = 1023"},
+        {"input": "C 0\nC 1\nC 3\nC 5\nC 8", "output": "C(0) = 1\nC(1) = 1\nC(3) = 5\nC(5) = 42\nC(8) = 1430"},
+        {"input": "F 0\nF 10\nF 20\nF 30\nF 40", "output": "F(0) = 1\nF(10) = 6\nF(20) = 13\nF(30) = 19\nF(40) = 25"},
+        {"input": "M 0\nM 3\nM 13\nM 44\nM 78", "output": "M(0) = 0\nM(3) = 2\nM(13) = 8\nM(44) = 27\nM(78) = 48"},
+      ]
+    },
+    {
+      "id": 28,
+      "title": "String Conan",
+      "description": "Click link for details",
+      "file": "https://drive.google.com/file/d/1VwupfgcGQdRCcwGixQXIUo29wtX83qlm/view?usp=sharing",
+      "testCases": [
+        {"input": "", "output": ""},
+        {"input": "", "output": ""},
+        {"input": "", "output": ""},
       ]
     },
 
