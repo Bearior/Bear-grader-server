@@ -232,16 +232,16 @@ const problems = [
       "description": "Click link for details",
       "file": "https://drive.google.com/file/d/19M7zB3I5J7tunuzN5UPxp1Nl6Ba5NkGW/view?usp=sharing",
       "testCases": [
-        { "input": "5\nB 50\nA 10\nC 50\nA 100\nD 80\n2", "output": "100 A\n80 D\n" },
-        { "input": "9\nD 50\nA 80\nC 50\nE 10\nK 20\nE 20\nA 10\nAA 50\nD 100\n3", "output": "100 D\n80 A\n50 AA C\n" },
-        { "input": "5\nA 80\nF 90\nC 80\nD 80\nB 80\n3", "output": "90 F\n80 A B C D\n" },
-        { "input": "8\nA 0\nD 50\nC 20\nA 50\nE 15\nC 50\nB 50\nA 100\n2", "output": "100 A\n50 B C D\n" },
-        { "input": "6\nP 40\nQ 50\nR 30\nS 50\nT 40\nU 60\n3", "output": "60 U\n50 Q S\n40 P T\n" },
-        { "input": "7\nX 70\nY 80\nZ 60\nX 90\nY 75\nZ 85\nW 100\n2", "output": "100 W\n90 X\n" },
-        { "input": "4\nL 100\nM 90\nN 100\nO 95\n1", "output": "100 L N\n" },
-        { "input": "10\nA 55\nB 65\nC 75\nD 85\nE 95\nF 65\nG 75\nH 85\nI 95\nJ 65\n5", "output": "95 E I\n85 D H\n75 C G\n65 B F J\n55 A\n" },
-        { "input": "3\nAlice 90\nBob 80\nCharlie 90\n2", "output": "90 Alice Charlie\n80 Bob\n" },
-        { "input": "6\nMark 50\nLuke 60\nJohn 70\nPaul 80\nPeter 60\nJames 70\n3", "output": "80 Paul\n70 James John\n60 Luke Peter\n" }
+        { "input": "5\nB 50\nA 10\nC 50\nA 100\nD 80\n2", "output": "100 A\n80 D" },
+        { "input": "9\nD 50\nA 80\nC 50\nE 10\nK 20\nE 20\nA 10\nAA 50\nD 100\n3", "output": "100 D\n80 A\n50 AA C" },
+        { "input": "5\nA 80\nF 90\nC 80\nD 80\nB 80\n3", "output": "90 F\n80 A B C D" },
+        { "input": "8\nA 0\nD 50\nC 20\nA 50\nE 15\nC 50\nB 50\nA 100\n2", "output": "100 A\n50 B C D" },
+        { "input": "6\nP 40\nQ 50\nR 30\nS 50\nT 40\nU 60\n3", "output": "60 U\n50 Q S\n40 P T" },
+        { "input": "7\nX 70\nY 80\nZ 60\nX 90\nY 75\nZ 85\nW 100\n2", "output": "100 W\n90 X" },
+        { "input": "4\nL 100\nM 90\nN 100\nO 95\n1", "output": "100 L N" },
+        { "input": "10\nA 55\nB 65\nC 75\nD 85\nE 95\nF 65\nG 75\nH 85\nI 95\nJ 65\n5", "output": "95 E I\n85 D H\n75 C G\n65 B F J\n55 A" },
+        { "input": "3\nAlice 90\nBob 80\nCharlie 90\n2", "output": "90 Alice Charlie\n80 Bob" },
+        { "input": "6\nMark 50\nLuke 60\nJohn 70\nPaul 80\nPeter 60\nJames 70\n3", "output": "80 Paul\n70 James John\n60 Luke Peter" }
       ]
     },
     {
