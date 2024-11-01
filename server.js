@@ -336,69 +336,63 @@ app.post('/api/submit', (req, res) => {
       }
 
       let passed = 0;
+      const results = [];
       const totalTestCases = problem.testCases.length;
 
-      // Use Promise.all to handle all test cases
-      const testCasePromises = problem.testCases.map((testCase, index) => {
-        return new Promise((resolve) => {
-          const inputFilePath = path.join(__dirname, `input${index}.txt`);
-          const outputFilePath = path.join(__dirname, `output${index}.txt`);
+      problem.testCases.forEach((testCase, index) => {
+        const inputFilePath = path.join(__dirname, `input${index}.txt`);
+        const outputFilePath = path.join(__dirname, `output${index}.txt`);
 
-          try {
-            fs.writeFileSync(inputFilePath, testCase.input);
-          } catch (err) {
-            console.error(`Error writing input file: ${err}`);
+        try {
+          fs.writeFileSync(inputFilePath, testCase.input);
+        } catch (err) {
+          console.error(`Error writing input file: ${err}`);
+        }
+
+        exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
+          if (runError) {
+            if (runError.killed) {
+              console.warn(`Test case ${index + 1}: Timeout Error`);
+              results[index] = 'T';  // Timeout
+            } else {
+              console.error(`Runtime Error: ${runStderr}`);
+              results[index] = 'x';  // Compilation error
+            }
+          } else {
+            try {
+              const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
+              const expectedOutput = testCase.output.trim();
+
+              if (userOutput === expectedOutput) {
+                passed += 1;
+                results[index] = 'P';  // Pass
+              } else {
+                results[index] = '-';  // Incorrect
+              }
+            } catch (err) {
+              console.error(`Error reading output file: ${err}`);
+              results[index] = '-';
+            }
           }
 
-          exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
-            if (runError) {
-              if (runError.killed) {
-                console.warn(`Test case ${index + 1}: Timeout Error`);
-                resolve("T");  // Timeout
-              } else {
-                console.error(`Runtime Error: ${runStderr}`);
-                resolve("x");  // Runtime error
-              }
-            } else {
-              try {
-                const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
-                const expectedOutput = testCase.output.trim();
+          if (results.length === totalTestCases) {
+            const score = (passed / totalTestCases) * 100;
+            const submissionId = submissionCounter++;
+            const statusString = `[${results.join('')}]`;
+            submissions.push({
+              submissionId,
+              problemId,
+              code,
+              score,
+              username,
+              status: statusString,
+              results,
+              timestamp: new Date()
+            });
 
-                if (userOutput === expectedOutput) {
-                  passed += 1;
-                  resolve("P");  // Pass
-                } else {
-                  resolve("-");  // Incorrect
-                }
-              } catch (err) {
-                console.error(`Error reading output file: ${err}`);
-                resolve("-");
-              }
-            }
-          });
+            res.json({ score, results, status: statusString});
+          }
         });
-      });
-
-      Promise.all(testCasePromises).then(results => {
-        const score = (passed / totalTestCases) * 100;
-        const statusString = `[${results.join('')}]`;  // Create the status string
-
-        // Save submission details
-        const submissionId = submissionCounter++;
-        const newSubmission = {
-          submissionId,
-          problemId,
-          code,
-          score,
-          status: statusString,
-          username,
-          timestamp: new Date()
-        };
-
-        submissions.push(newSubmission);
-
-        // Send response with score and status string
-        res.json({ score, status: statusString });
       });
     });
   } catch (err) {
