@@ -239,74 +239,46 @@ app.get('/api/problems/:id', (req, res) => {
 app.post('/api/submit', (req, res) => {
   const { code, problemId, username } = req.body;
   console.log(`Received submission for problem ID: ${problemId} by user: ${username}`);
-  
-  problem.testCases.forEach((testCase, index) => {
-    // ... existing code for execution
-    if (runError) {
-      if (runError.killed) {
-        results.push("T");  // Timeout symbol
-      } else {
-        results.push("x");  // Compilation error
-      }
-    } else {
-      const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
-      const expectedOutput = testCase.output.trim();
-      results.push(userOutput === expectedOutput ? "P" : "-");
-    }
-    // Update final response to include symbols
-    const score = (passed / totalTestCases) * 100;
-    res.json({ score, results }); // results as array of symbols
-  });
 
   const problem = problems.find(p => p.id == problemId);
   if (!problem) {
-    console.error(`Problem ID: ${problemId} not found for submission`);
     return res.status(404).send('Problem not found');
   }
 
   try {
     // Save the user's code to a file
     const filePath = path.join(__dirname, 'user_code.cpp');
-    console.log(`Saving code to file: ${filePath}`);
     fs.writeFileSync(filePath, code);
 
-    // Compile the user's C++ code using g++ (without .exe)
-    console.log(`Compiling code: g++ ${filePath}`);
+    // Compile the user's C++ code
     exec(`g++ ${filePath} -o output`, (error, stdout, stderr) => {
       if (error) {
         console.error(`Compilation Error: ${stderr}`);
-        return res.json({ success: false, message: `Compilation Error: ${stderr}` });
+        return res.json({ score: 0, results: Array(problem.testCases.length).fill('x') });
       }
 
-      // Initialize score and result array
       let passed = 0;
-      const totalTestCases = problem.testCases.length;
       const results = [];
-      console.log(`Compiled successfully, running test cases for problem ID: ${problemId}`);
+      const totalTestCases = problem.testCases.length;
 
-      // Run the compiled code for each test case
       problem.testCases.forEach((testCase, index) => {
         const inputFilePath = path.join(__dirname, `input${index}.txt`);
         const outputFilePath = path.join(__dirname, `output${index}.txt`);
 
         try {
-          // Write the input to a file
-          console.log(`Writing input to file: ${inputFilePath}`);
           fs.writeFileSync(inputFilePath, testCase.input);
         } catch (err) {
           console.error(`Error writing input file: ${err}`);
         }
 
-        // Execute the program with input redirection (./output for Linux) with a timeout
-        console.log(`Executing test case ${index + 1} with timeout: ${TIMEOUT_DURATION / 1000} seconds`);
         exec(`./output < ${inputFilePath} > ${outputFilePath}`, { timeout: TIMEOUT_DURATION }, (runError, runStdout, runStderr) => {
           if (runError) {
             if (runError.killed) {
-              console.warn(`Test case ${index + 1}: Timeout Error (exceeded ${TIMEOUT_DURATION / 1000} seconds)`);
-              results.push({ success: false, message: `Timeout Error: Program exceeded ${TIMEOUT_DURATION / 1000} seconds limit.` });
+              console.warn(`Test case ${index + 1}: Timeout Error`);
+              results[index] = 'T';  // Timeout
             } else {
-              console.error(`Test case ${index + 1}: Runtime Error: ${runStderr}`);
-              results.push({ success: false, message: `Runtime Error: ${runStderr}` });
+              console.error(`Runtime Error: ${runStderr}`);
+              results[index] = 'x';  // Compilation error
             }
           } else {
             try {
@@ -315,28 +287,20 @@ app.post('/api/submit', (req, res) => {
 
               if (userOutput === expectedOutput) {
                 passed += 1;
-                console.log(`Test case ${index + 1}: Passed`);
-                results.push({ success: true, message: `Test case ${index + 1}: Passed` });
+                results[index] = 'P';  // Pass
               } else {
-                console.log(`Test case ${index + 1}: Failed (Expected: ${expectedOutput}, Got: ${userOutput})`);
-                results.push({ success: false, message: `Test case ${index + 1}: Failed` });
+                results[index] = '-';  // Incorrect
               }
             } catch (err) {
               console.error(`Error reading output file: ${err}`);
-              results.push({ success: false, message: `Error reading output file: ${err}` });
+              results[index] = '-';
             }
           }
 
-          // After processing all test cases, save the submission and return the results
           if (results.length === totalTestCases) {
             const score = (passed / totalTestCases) * 100;
-
-            // Generate a unique submission ID
             const submissionId = submissionCounter++;
-            console.log(`Submission ID: ${submissionId}, Score: ${score}%`);
-
-            // Save the submission
-            const newSubmission = {
+            submissions.push({
               submissionId,
               problemId,
               code,
@@ -344,11 +308,9 @@ app.post('/api/submit', (req, res) => {
               username,
               results,
               timestamp: new Date()
-            };
-            submissions.push(newSubmission);
+            });
 
-            // Return the submission with a unique ID
-            res.json({ success: true, submissionId, score, results });
+            res.json({ score, results });
           }
         });
       });
