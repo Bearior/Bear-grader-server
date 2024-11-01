@@ -182,7 +182,7 @@ const problems = [
     "file": "https://drive.google.com/file/d/1qHXR9c59TUPcOLeGqf3WjNmtW3UEpfut/view?usp=sharing",
     "testCases": [
      { "input": "3\nC 4\nA 1\nB+ 3", "output": "2.81" },
-    { "input": "3\nA 1\nA 2\nA 3", "output": "4.00" }
+    { "input": "3\nA 1\nA 2\nA 3", "output": "4" }
     ]
   },
 
@@ -239,6 +239,24 @@ app.get('/api/problems/:id', (req, res) => {
 app.post('/api/submit', (req, res) => {
   const { code, problemId, username } = req.body;
   console.log(`Received submission for problem ID: ${problemId} by user: ${username}`);
+  
+  problem.testCases.forEach((testCase, index) => {
+    // ... existing code for execution
+    if (runError) {
+      if (runError.killed) {
+        results.push("T");  // Timeout symbol
+      } else {
+        results.push("x");  // Compilation error
+      }
+    } else {
+      const userOutput = fs.readFileSync(outputFilePath, 'utf8').trim();
+      const expectedOutput = testCase.output.trim();
+      results.push(userOutput === expectedOutput ? "P" : "-");
+    }
+    // Update final response to include symbols
+    const score = (passed / totalTestCases) * 100;
+    res.json({ score, results }); // results as array of symbols
+  });
 
   const problem = problems.find(p => p.id == problemId);
   if (!problem) {
