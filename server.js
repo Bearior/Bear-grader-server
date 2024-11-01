@@ -300,17 +300,19 @@ app.post('/api/submit', (req, res) => {
           if (results.length === totalTestCases) {
             const score = (passed / totalTestCases) * 100;
             const submissionId = submissionCounter++;
+            const statusString = `[${results.join('')}]`;
             submissions.push({
               submissionId,
               problemId,
               code,
               score,
               username,
+              status: statusString,
               results,
               timestamp: new Date()
             });
 
-            res.json({ score, results });
+            res.json({ score, results, status: statusString});
           }
         });
       });
