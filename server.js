@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 const problems = [
   {
     id: 1,
-    title: 'Sum of Two Numbers',
+    title: 'Sum of Two Numbers (warmup)',
     description: 'Write a program to add two numbers.',
     file: 'https://drive.google.com/file/d/13CVDGk9Np_EsYR15R1ZNJPvccFzHwhUm/view?usp=sharing',
     testCases: [
@@ -32,7 +32,7 @@ const problems = [
   },
   {
     id: 2,
-    title: 'Factorial',
+    title: 'Factorial (warmup)',
     description: 'Write a program to calculate the factorial of a number.',
     file: 'https://drive.google.com/file/d/1Xe0IVlGywtMQACPkBI7hrCuV8UGEfj95/view?usp=sharing',
     testCases: [
